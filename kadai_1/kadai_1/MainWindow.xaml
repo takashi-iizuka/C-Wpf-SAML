@@ -1,0 +1,65 @@
+﻿<Window x:Class="kadai_1.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:kadai_1"
+        mc:Ignorable="d"
+        Title="Wpfで課題①"  Width="350" Height="250" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+
+    <Window.Resources>
+        <local:RGBConverter x:Key="rgbConverter" />
+
+        <Style x:Key="sliderStyle" TargetType="Slider">
+            <Setter Property="Width" Value="180" />
+            <Setter Property="Minimum" Value="0" />
+            <Setter Property="Maximum" Value="255" />
+            <Setter Property="LargeChange" Value="16" />
+            <Setter Property="SmallChange" Value="1" />
+            <Setter Property="TickFrequency" Value="16" />
+            <Setter Property="TickPlacement" Value="TopLeft" />
+            <Setter Property="IsSnapToTickEnabled" Value="True" />
+            <Setter Property="Margin" Value="10" />
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <StackPanel Orientation="Horizontal">
+            <StackPanel Orientation="Vertical">
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Color Red:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+                <TextBox Name="textBoxRed" Width="30" Height="25" HorizontalAlignment="Left" Margin="20,10,0,0" Text="{Binding ElementName=sliderRed, Path=Value}"/>
+                <Slider Name="sliderRed" Style="{StaticResource sliderStyle}"  Value="0"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Color Green:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+                <TextBox Name="textBoxGreen" Width="30" Height="25" HorizontalAlignment="Left" Margin="10,10,0,0" Text="{Binding ElementName=sliderGreen, Path=Value}"/>
+                <Slider Name="sliderGreen" Style="{StaticResource sliderStyle}" Value="128" />
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Color Blue:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+                <TextBox Name="textBoxBlue" Width="30" Height="25" HorizontalAlignment="Left" Margin="20,10,0,0" Text="{Binding ElementName=sliderBlue, Path=Value}"/>
+                <Slider Name="sliderBlue" Style="{StaticResource sliderStyle}" Value="255"/>
+            </StackPanel>
+
+            <Rectangle Width="320" Height="60" HorizontalAlignment="Left"  Margin="10,10,0,0" >
+                <Rectangle.Fill>
+                    <SolidColorBrush>
+                        <SolidColorBrush.Color>
+                            <MultiBinding Converter="{StaticResource rgbConverter}">
+                                <MultiBinding.Bindings>
+                                    <Binding ElementName="sliderRed" Path="Value" />
+                                    <Binding ElementName="sliderGreen" Path="Value" />
+                                    <Binding ElementName="sliderBlue" Path="Value" />
+                                </MultiBinding.Bindings>
+                            </MultiBinding>
+                        </SolidColorBrush.Color>
+                    </SolidColorBrush>
+                </Rectangle.Fill>
+            </Rectangle>
+        </StackPanel>
+        </StackPanel>
+
+    </Grid>
+</Window>
